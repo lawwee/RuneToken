@@ -1,5 +1,5 @@
 const main = async () => {
-    const [ owner, randomUser  ] = await hre.ethers.getSigners()
+    const [ owner, randomUser, anotherUser, newUser ] = await hre.ethers.getSigners()
     const runeContractFactory = await hre.ethers.getContractFactory("RuneERC20")
     const runeContract = await runeContractFactory.deploy()
     await runeContract.deployed()
@@ -15,12 +15,18 @@ const main = async () => {
 
     txn = await runeContract.balanceOf(randomUser.address)
 
+    txn = await runeContract.balanceOf(anotherUser.address)
+
     txn = await runeContract.transfer(randomUser.address, 1000);
     await txn.wait()
 
-    txn = await runeContract.balanceOf(owner.address)
+    txn = await runeContract.connect(randomUser).transferFrom(randomUser.address, anotherUser.address, 100)
+    await txn.wait()
 
     txn = await runeContract.balanceOf(randomUser.address)
+
+    txn = await runeContract.balanceOf(anotherUser.address)
+
 }
 
 const runMain = async () => {

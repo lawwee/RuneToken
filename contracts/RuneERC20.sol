@@ -56,5 +56,11 @@ contract RuneERC20 is ERC20 {
         console.log("Successful");
     }
 
+    function transferFrom(address from, address to, uint amount) public override returns(bool) {
+        require(msg.sender == from, "You do not own this address");
+        _transfer(from, to, amount);
+        return true;
+    }
+
    
 }
