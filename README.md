@@ -1,15 +1,11 @@
-# Basic Sample Hardhat Project
+RUNE TOKEN
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+A basic creation and implementation of an ERC20 token with the name "Rune Token" and symbol "RUNES". It aims to fulfil the standard ERC20 rules, importing the ERC20 token contract from openzeppelin.
 
-Try running some of the following tasks:
+The **totalSupply()** function is a public function that returns the total number of tokens that has been minted in supply.
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+The **balanceOf()** function is a public function that returns the amount of tokens owned by an address. It takes an argument of the interested address and returns the amount of tokens owned.
+
+The **transfer()** function is a public function that sends an amount of tokens from the supply to a specified address. It takes two arguments, _to_ being the address that would recieve the token and _amount_ being the amount of tokens that would be sent to the specified address.
+
+The **__transfer()** function is an internal function used by the public _transfer_ function to securely send tokens to the desired address.
