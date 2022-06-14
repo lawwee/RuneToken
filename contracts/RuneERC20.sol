@@ -7,12 +7,12 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract RuneERC20 is ERC20 {
 
-    uint _totalSupply = 1000000000;
+    uint _totalSupply = 1000000000000000000000000000;
     address private admin;
 
     mapping (address => uint) _balances;
 
-    constructor () ERC20("Rune Token", "RUNES") {
+    constructor () ERC20("Rune Token", "RUNE") {
         admin = msg.sender;
         _mint(admin, _totalSupply);
         _balances[admin] = _totalSupply;
