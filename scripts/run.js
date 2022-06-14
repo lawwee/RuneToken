@@ -13,19 +13,33 @@ const main = async () => {
 
     txn = await runeContract.balanceOf(owner.address)
 
-    txn = await runeContract.balanceOf(randomUser.address)
-
-    txn = await runeContract.balanceOf(anotherUser.address)
-
-    txn = await runeContract.transfer(randomUser.address, 1000);
+    txn = await runeContract.mint(owner.address, 500000)
     await txn.wait()
 
-    txn = await runeContract.connect(randomUser).transferFrom(randomUser.address, anotherUser.address, 100)
-    await txn.wait()
+    txn = await runeContract.totalSupply()
 
     txn = await runeContract.balanceOf(randomUser.address)
 
-    txn = await runeContract.balanceOf(anotherUser.address)
+    txn = await runeContract.transfer(randomUser.address, 500000);
+    await txn.wait()
+
+    txn = await runeContract.balanceOf(randomUser.address)
+
+    txn = await runeContract.connect(randomUser).burn(randomUser.address, 500000)
+    await txn.wait()
+
+    txn = await runeContract.balanceOf(randomUser.address)
+
+    txn = await runeContract.totalSupply()
+
+    // txn = await runeContract.balanceOf(anotherUser.address)
+
+    // txn = await runeContract.connect(randomUser).transferFrom(randomUser.address, anotherUser.address, 100)
+    // await txn.wait()
+
+    // txn = await runeContract.balanceOf(randomUser.address)
+
+    // txn = await runeContract.balanceOf(anotherUser.address)
 
 }
 
