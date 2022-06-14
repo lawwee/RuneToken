@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract RuneERC20 is ERC20 {
 
-    uint _totalSupply = 10000 * 10 ** decimals();
+    uint _totalSupply = 1000000000;
     address private admin;
 
     mapping (address => uint) _balances;
@@ -56,5 +56,29 @@ contract RuneERC20 is ERC20 {
         console.log("Successful");
     }
 
-   
+    function transferFrom(address from, address to, uint amount) public override returns(bool) {
+        require(msg.sender == from, "You do not own this address");
+        _transfer(from, to, amount);
+        return true;
+    }
+
+    function mint(address to, uint amount) external {
+        require(msg.sender == admin, "You are not an admin");
+        require(to == admin, "You cannot mint new tokens to this address");
+
+        _totalSupply += amount;
+        _balances[to] += amount; 
+        _mint(to, amount);
+    }
+
+    function burn(address account, uint amount) external {
+        require(msg.sender == account, "You do not own this account");
+        uint currentBalance = _balances[account];
+        require(currentBalance >= amount, "You cannot burn more than your balance");
+        unchecked {
+            _balances[account] = currentBalance - amount;
+        }
+        _totalSupply -= amount;
+    }
+
 }
